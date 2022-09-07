@@ -9,11 +9,13 @@ fly.config.timeout = 5000
 
 // 请求拦截器
 fly.interceptors.request.use((config) => {
+  toast.loading()
   return config
 })
 
 // 相应拦截器
 fly.interceptors.response.use((response) => {
+    uni.hideToast()
     return response.data.message
   },
   (error) => {

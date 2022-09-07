@@ -33,13 +33,14 @@
         <!-- 楼层图片区域 -->
         <view class="floor-img-box">
           <!-- 左侧大图片的盒子 -->
-          <view class="left-img-box">
+          <view @click="toGoodsList(item.product_list[0].navigator_url)" class="left-img-box">
             <image class="left-img" :src="item.product_list[0].image_src"
               :style="{width:item.product_list[0].image_width+'rpx'}"></image>
           </view>
           <!-- 右侧 4 个小图片的盒子 -->
           <view class="right-img-box">
-            <view class="right-img-item" v-for="(item2,i) in item.product_list" :key="i" v-if="i !== 0">
+            <view @click="toGoodsList(item2.navigator_url)" class="right-img-item"
+              v-for="(item2,index) in item.product_list" :key="index" v-if="index !== 0">
               <image class="image" :src="item2.image_src" :style="{width:item2.image_width+'rpx'}"></image>
             </view>
           </view>
@@ -80,6 +81,13 @@
       toGoodsDetail(id) {
         uni.navigateTo({
           url: '/subpkg/goods-detail/goods-detail?id=' + id
+        })
+      },
+      // 点击楼层图片跳转
+      toGoodsList(url) {
+        const i = url.indexOf('?')
+        uni.navigateTo({
+          url: '/subpkg/goods-list/goods-list' + url.slice(i)
         })
       },
       // 点击分类
